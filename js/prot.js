@@ -33,7 +33,7 @@
 			//if not, it's a response to a request
 			else if (this._cbs[msg.r] !== undefined)
 			{
-				this._cbs[msg.r](msg.d);
+				this._cbs[msg.r](msg.err, msg.d);
 				delete this._cbs[msg.r];
 			}
 
@@ -55,7 +55,7 @@
 			this._evts[evt].push(cb);
 		},
 
-		"_req": function(method, data, cb)
+		"send": function(method, data, cb)
 		{
 			if (this._ready)
 			{
