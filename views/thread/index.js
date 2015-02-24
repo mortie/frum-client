@@ -1,4 +1,4 @@
-spat.addView("thread", ["index"], function(view)
+spat.addView("thread", ["index"], function(args, view)
 {
 
 });

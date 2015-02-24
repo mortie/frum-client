@@ -3,7 +3,7 @@ window.prot = new Prot(conf.webSocketURL);
 window.spat = new Spat(
 {
 	"element": document.getElementById("view"),
-	"defaultView": "home",
+	"defaultView": "front",
 	"viewDir": "views",
 });
 
