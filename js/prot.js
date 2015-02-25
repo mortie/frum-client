@@ -20,12 +20,17 @@
 			}.bind(this));
 		}.bind(this);
 
+		this.ws.onclose = function()
+		{
+			this._emit("close");
+		}.bind(this);
+
 		this.ws.onmessage = function(evt)
 		{
 			var msg = JSON.parse(evt.data);
 
 			//request ID of 0 means that this is an event, not a reply
-			if (msg.r === 0)
+			if (msg.r === undefined)
 			{
 				this._emit(msg.e, msg.d);
 			}
