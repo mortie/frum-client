@@ -7,26 +7,38 @@
 		switch (name)
 		{
 		case "login":
-			if (args.username)
+			prot.send("session_get_info", {}, function(err, res)
 			{
+				if (err)
+					return console.log(err);
+
 				spat.draw("userbox", spat.template("userbox_logged_in",
 				{
-					"username": args.username
+					"username": res.username,
+					"invitesDisabled": !conf.requireInvite
 				}));
-			}
-			else
-			{
-				prot.send("session_get_info", {}, function(err, res)
-				{
-					if (err)
-						return console.log(err);
 
-					spat.draw("userbox", spat.template("userbox_logged_in",
+				spat.event("#userbox .logout", "click", function()
+				{
+					prot.send("session_logout", {}, function(err, res)
 					{
-						"username": res.username
-					}));
+						lib.setStorage("token", "");
+					});
 				});
-			}
+
+				spat.event("#userbox .invite", "click", function()
+				{
+					prot.send("invite_code_create", {}, function(err, res)
+					{
+						lib.notify(spat.template("invite_code_message",
+						{
+							"host": location.hostname,
+							"path": location.pathname,
+							"code": res.code
+						}));
+					});
+				});
+			});
 			break;
 
 		case "logout":
@@ -39,7 +51,8 @@
 	spat.loadTemplates(
 	[
 		"userbox_logged_in",
-		"userbox_logged_out"
+		"userbox_logged_out",
+		"invite_code_message"
 	],
 	function()
 	{

@@ -1,4 +1,123 @@
+body
+{
+	margin: 0px;
+	background-color: #292929;
+}
+
+a:hover
+{
+	cursor: hand;
+	cursor: pointer;
+}
+
+#nav
+{
+	background-color: #333;
+	border-bottom: 2px solid #222;
+}
+#nav a
+{
+	color: #eee;
+	margin-left: 12px;
+	line-height: 48px;
+	height: 48px;
+	display: inline-block;
+	text-decoration: none;
+}
+
 #userbox
 {
+	text-align: right;
 	float: right;
+	margin-right: 12px;
+	line-height: 24px;
+	height: 48px;
+	color: #bbb;
+}
+#userbox a
+{
+	color: #eee;
+	text-decoration: none;
+}
+#userbox .invite,
+#userbox .register
+{
+	margin-left: 12px;
+}
+#userbox .invite.invitesDisabled
+{
+	display: none;
+}
+
+#notification
+{
+	display: none;
+}
+#notification.active
+{
+	display: block;
+	position: absolute;
+
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	transform: translateY(-50%);
+	margin: auto 0px;
+
+	width: 50%;
+	height: 50%;
+	background-color: #444;
+	padding: 12px;
+}
+#notification .content
+{
+	color: #eee;
+}
+
+#view
+{
+	width: 90%;
+	max-width: 800px;
+	margin: 10px auto;
+	background-color: #333;
+	border: 2px solid #222;
+	border-bottom: none;
+}
+
+#view > div
+{
+	padding: 10px;
+	color: #bbb;
+	border-bottom: 2px solid #222;
+}
+
+#view > div a
+{
+	color: #eee;
+}
+
+#view .navigate .next
+{
+	float: right;
+}
+#view .navigate.firstPage .prev
+{
+	visibility: hidden;
+}
+#view .navigate.lastPage .next
+{
+	visibility: hidden;
+}
+#view .navigate.firstPage.lastPage
+{
+	display: none;
+}
+
+#view .thread .content
+{
+	margin-top: 12px;
+	margin-bottom: 12px;
+	color: #eee;
 }

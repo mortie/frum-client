@@ -51,6 +51,19 @@
 		return str;
 	}
 
+	function addEvent(base, q, evt, cb)
+	{
+		var elems = base.querySelectorAll(q);
+		for (var i in elems)
+		{
+			var elem = elems[i];
+			if (!(elem instanceof Node))
+				break;
+
+			elem.addEventListener(evt, cb, false);
+		}
+	}
+
 	window.Spat = function(options)
 	{
 		options = options || {};
@@ -117,12 +130,14 @@
 			if (view.templatesLoaded)
 			{
 				view.cb(tokens, view);
+				view._element.className = tokens[0];
 			}
 			else
 			{
 				view.ontemplatesloaded = function()
 				{
 					view.cb(tokens, view);
+					view._element.className = tokens[0];
 				}
 			}
 		},
@@ -160,6 +175,16 @@
 		"draw": function(id, str)
 		{
 			document.getElementById(id).innerHTML = str;
+		},
+
+		"event": function(q, evt, cb)
+		{
+			addEvent(document, q, evt, cb);
+		},
+
+		"elem": function(q)
+		{
+			return document.querySelector(q);
 		}
 	}
 
@@ -173,7 +198,7 @@
 		this._templateCache = {};
 
 		//do things once all templates are loaded
-		var async = Async(templates.length, function()
+		var async = Async(templates.length+1, function()
 		{
 			this.templatesLoaded = true;
 			if (this.ontemplatesloaded)
@@ -189,6 +214,7 @@
 				async();
 			}.bind(this));
 		}.bind(this));
+		async();
 	}
 	View.prototype =
 	{
@@ -208,15 +234,7 @@
 
 		"event": function(q, evt, cb)
 		{
-			var elems = this._element.querySelectorAll(q);
-			for (var i in elems)
-			{
-				var elem = elems[i];
-				if (!(elem instanceof Node))
-					break;
-
-				elem.addEventListener(evt, cb, false);
-			}
+			addEvent(this._element, q, evt, cb);
 		},
 
 		"elem": function(q)

@@ -1,5 +1,6 @@
 window.conf =
 {
-	"webSocketURL": "ws://localhost:8081",
-	"postsPerPage": 10
+	"webSocketURL": "ws://serve.mort.coffee:81",
+	"postsPerPage": 10,
+	"requireInvite": true
 }

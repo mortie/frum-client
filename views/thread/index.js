@@ -11,12 +11,23 @@ spat.addView("thread", ["index", "thread"], function(args, view)
 	},
 	function(err, res)
 	{
+		if (err)
+		{
+			lib.notify("An unknown error occurred.");
+			return console.log(err);
+		}
+
+		console.log(res);
+
 		var thread = view.template("thread",
 		{
-			"id": res.id,
+			"id": id.toString(),
 			"name": res.name,
 			"username": res.username,
-			"content": res.html
+			"content": res.html,
+			"date": lib.dateToString(new Date(res.date_created)),
+			"category": res.category_name,
+			"category_id": res.category_id.toString()
 		});
 
 		view.draw(view.template("index",

@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>Frum</title>
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/views.css">
 </head>
 <body>
 	<div id="userbox"></div>
@@ -13,6 +14,11 @@
 	</div>
 
 	<div id="view"></div>
+
+	<div id="notification">
+		<button onclick="this.parentNode.className = ''">X</button>
+		<div class="content"></div>
+	</div>
 
 	<script src="conf.js"></script>
 	<script src="js/lib.js"></script>

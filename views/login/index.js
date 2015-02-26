@@ -17,7 +17,7 @@ spat.addView("login", ["index"], function(args, view)
 				return console.log(err);
 
 			lib.setStorage("token", res.token);
-			spat.load("front");
+			location.hash = "front";
 		});
 	}
 

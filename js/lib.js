@@ -27,6 +27,17 @@
 
 	lib.notify = function(msg)
 	{
-		alert(msg);
+		spat.elem("#notification .content").innerHTML = msg;
+		spat.elem("#notification").className = "active";
+	}
+
+	lib.dateToString = function(date)
+	{
+		return ""+
+			date.getDate()+"/"+
+			(date.getMonth()+1)+"/"+
+			date.getFullYear()+" "+
+			date.getHours()+":"+
+			date.getMinutes();
 	}
 })();
