@@ -16,7 +16,7 @@
 			this._ready = true;
 			this._queue.forEach(function(entry)
 			{
-				this._send(entry[0], entry[1], entry[2]);
+				this.send(entry[0], entry[1], entry[2]);
 			}.bind(this));
 		}.bind(this);
 

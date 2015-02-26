@@ -33,16 +33,34 @@
 		}
 	}
 
+	function template(str, args)
+	{
+		if (!args)
+			return str;
+
+		for (var i in args)
+		{
+			if (typeof args[i] === "string")
+				str = str.split("{{"+i+"}}").join(args[i]);
+			else if (args[i] === true)
+				str = str.split("{{"+i+"?}}").join(i);
+		}
+
+		return str;
+	}
+
 	window.Spat = function(options)
 	{
 		options = options || {};
 
-		this.defaultView = options.defaultView || "home";
+		this.defaultView = options.defaultView;
 		this._viewsDir = options.viewsDir || "views";
+		this._templatesDir = options.templatesDir || "templates";
 		this._element = options.element || document.getElementById("view");
 
 		this._views = {};
 		this._path = window.location.hash.substring(1);
+		this._templateCache = {};
 
 		function viewChangeHandler()
 		{
@@ -105,6 +123,41 @@
 					view.cb(tokens, view);
 				}
 			}
+		},
+
+		"loadTemplates": function(names, cb)
+		{
+			if (typeof names === "string")
+				names = [names];
+
+			var async = Async(names.length+1, cb);
+
+			names.forEach(function(name)
+			{
+				if (this._templateCache[name])
+					return async();
+
+				get(this._templatesDir+"/"+name+".html", function(res)
+				{
+					this._templateCache[name] = res;
+					async();
+				}.bind(this));
+			}.bind(this));
+			async();
+		},
+
+		"template": function(name, args)
+		{
+			var str = this._templateCache[name];
+			if (str === undefined)
+				throw new Error(name+": No such template!");
+
+			return template(str, args);
+		},
+
+		"draw": function(id, str)
+		{
+			document.getElementById(id).innerHTML = str;
 		}
 	}
 
@@ -139,19 +192,11 @@
 	{
 		"template": function(name, args)
 		{
-			var template = this._templateCache[name];
-			if (template === undefined)
-				throw new Error("No such template!");
+			var str = this._templateCache[name];
+			if (str === undefined)
+				throw new Error(name+": No such template!");
 
-			if (args)
-			{
-				for (var i in args)
-				{
-					template = template.split("{{"+i+"}}").join(args[i]);
-				}
-			}
-
-			return template;
+			return template(str, args);
 		},
 
 		"draw": function(str)
@@ -170,6 +215,11 @@
 
 				elem.addEventListener(evt, cb, false);
 			}
+		},
+
+		"elem": function(q)
+		{
+			return this._element.querySelector(q);
 		},
 
 		"post": post,

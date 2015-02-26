@@ -8,13 +8,15 @@ prot.on("close", function()
 window.spat = new Spat(
 {
 	"element": document.getElementById("view"),
-	"defaultView": "front",
-	"viewDir": "views",
+	"defaultView": "front"
 });
 
 spat.loadViews(
 [
 	"front",
 	"cats",
-	"thread"
+	"thread",
+	"login",
+	"register",
+	"user"
 ]);
