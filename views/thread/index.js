@@ -3,7 +3,7 @@ spat.addView("thread", ["index", "thread"], function(args, view)
 	var id = parseInt(args[1]);
 
 	if (!id)
-		spat.load("front");
+		location.hash = "front";
 
 	prot.send("thread_get",
 	{

@@ -15,6 +15,7 @@ spat.loadViews(
 [
 	"front",
 	"cats",
+	"cat",
 	"thread",
 	"login",
 	"register",

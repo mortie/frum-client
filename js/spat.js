@@ -44,6 +44,8 @@
 				str = str.split("{{"+i+"}}").join(args[i]);
 			else if (args[i] === true)
 				str = str.split("{{"+i+"?}}").join(i);
+			else if (args[i] === false)
+				str = str.split("{{"+i+"?}}").join("");
 		}
 
 		return str;
