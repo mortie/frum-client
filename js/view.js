@@ -118,20 +118,4 @@
 	{
 		draw("logout");
 	}
-
-	setTimeout(function()
-	{
-		lib.msgbox("Do you want to receive a notification right now?",
-		{
-			"yes": function()
-			{
-				lib.notify("Here's your notification.");
-			},
-
-			"no": function()
-			{
-
-			}
-		});
-	}, 1000);
 })();

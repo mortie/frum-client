@@ -12,7 +12,8 @@
 		"yes": function(){},
 		"no": function(){},
 		"cancel": function(){},
-		"ok": function(){}
+		"ok": function(){},
+		"close": function(){}
 	}
 
 	if (window.Notification)
@@ -66,6 +67,7 @@
 			spat.elem("#msgbox").className += " withOk";
 			msgboxCallbacks.ok = evts.ok;
 		}
+		msgboxCallbacks.close = evts.close || (function(){});
 	}
 
 	spat.event("#msgbox .noButton", "click", function evtHandler(e)
@@ -83,6 +85,10 @@
 	spat.event("#msgbox .okButton", "click", function evtHandler(e)
 	{
 		msgboxCallbacks.ok(e);
+	});
+	spat.event("#msgbox .close", "click", function evtHandler(e)
+	{
+		msgboxCallbacks.close(e);
 	});
 
 	lib.notify = function(title, body)

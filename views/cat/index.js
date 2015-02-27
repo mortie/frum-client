@@ -24,7 +24,6 @@ spat.addView("cat", ["index", "thread"], function(args, view)
 				"username": thread.username,
 				"name": thread.name,
 				"date": lib.dateToString(new Date(thread.date_created)),
-				"category": thread.category_name,
 				"category_id": thread.category_id.toString()
 			});
 		});
@@ -36,8 +35,8 @@ spat.addView("cat", ["index", "thread"], function(args, view)
 			"prevPage": (page-1).toString(),
 			"nextPage": (page+1).toString(),
 			"firstPage": (page === 1),
-			"lastPage": (res.threads.length < conf.postsPerPage)
+			"lastPage": (res.threads.length < conf.postsPerPage),
+			"category": res.threads[0].category_name
 		}));
 	});
-
 });

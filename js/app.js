@@ -21,3 +21,8 @@ spat.loadViews(
 	"register",
 	"user"
 ]);
+
+spat.onload = function(view)
+{
+	spat.elem("body").className = view;
+}

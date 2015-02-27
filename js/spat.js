@@ -131,6 +131,7 @@
 			{
 				view.cb(tokens, view);
 				view._element.className = tokens[0];
+				if (this.onload) this.onload(tokens[0]);
 			}
 			else
 			{
@@ -138,7 +139,8 @@
 				{
 					view.cb(tokens, view);
 					view._element.className = tokens[0];
-				}
+					if (this.onload) this.onload(tokens[0]);
+				}.bind(this);
 			}
 		},
 

@@ -3,19 +3,18 @@ body
 	margin: 0px;
 	background-color: #292929;
 
-	font-family: Times New Roman;
+	font-family: "Times New Roman";
 }
 
 a:hover
 {
-	cursor: hand;
 	cursor: pointer;
 }
 
 #nav
 {
 	position: relative;
-	background-color: #333;
+	background-color: #3d3d3d;
 	border-bottom: 2px solid #222;
 }
 #nav a,
@@ -28,6 +27,12 @@ a:hover
 	display: inline-block;
 	text-decoration: none;
 }
+body.front #nav .front,
+body.cats #nav .cats,
+body.cat #nav .cats
+{
+	color: #FFB946 !important;
+}
 
 #userbox
 {
@@ -35,10 +40,13 @@ a:hover
 	z-index: 10;
 	text-align: right;
 	float: right;
-	margin-right: 12px;
-	line-height: 24px;
+	line-height: 48px;
 	height: 48px;
 	color: #bbb;
+}
+#userbox .welcome
+{
+	display: inline;
 }
 #userbox a,
 #userbox a:visited
@@ -46,14 +54,20 @@ a:hover
 	color: #eee;
 	text-decoration: none;
 }
-#userbox .invite,
-#userbox .register
+#userbox > div,
+#userbox > a
 {
-	margin-left: 12px;
+	margin-right: 12px;
 }
 #userbox .invite.invitesDisabled
 {
 	display: none;
+}
+#userbox > div,
+#userbox > a
+{
+	display: inline-block;
+	height: 100%;
 }
 
 #msgbox
@@ -170,7 +184,6 @@ a:hover
 #msgbox .cancelButton:hover,
 #msgbox .okButton:hover
 {
-	cursor:hand;
 	cursor:pointer;
 }
 
@@ -184,6 +197,7 @@ a:hover
 	background-color: #444;
 	position: absolute;
 	width: 100%;
+	z-index: 20;
 }
 #notification.active
 {
@@ -236,9 +250,9 @@ a:hover
 #view
 {
 	width: 90%;
-	max-width: 800px;
+	max-width: 1000px;
 	margin: 48px auto;
-	background-color: #333;
+	background-color: #323232;
 	border: 2px solid #222;
 	border-bottom: none;
 	position: relative;
@@ -250,8 +264,22 @@ a:hover
 	border-bottom: 2px solid #222;
 }
 #view > div a,
-#view >div a:visited
+#view > div a:visited
 {
+	color: #eee;
+	text-decoration: none;
+	border-bottom: 1px solid #777;
+	display: inline-block;
+	line-height: 12px;
+}
+#view > div a:hover
+{
+	border-bottom-style: solid;
+	border-bottom-color: #eee;
+}
+#view .section
+{
+	background-color: #3d3d3d;
 	color: #eee;
 }
 #view .navigate .next
@@ -271,9 +299,12 @@ a:hover
 	display: none;
 }
 
-#view .thread .content
+#view .content
 {
-	margin-top: 12px;
 	margin-bottom: 12px;
 	color: #eee;
+}
+#view .name
+{
+	margin-bottom: 12px;
 }
