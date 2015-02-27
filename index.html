@@ -2,12 +2,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Frum</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/views.css">
 </head>
 <body>
+	<div id="notification">
+		<button class="close" onclick="this.parentNode.className = ''"></button>
+		<div class="title"></div>
+		<div class="body"></div>
+	</div>
+
 	<div id="userbox"></div>
+
 	<div id="nav">
 		<a href="#front">Front Page</a>
 		<a href="#cats">Categories</a>
@@ -15,16 +23,22 @@
 
 	<div id="view"></div>
 
-	<div id="notification">
-		<button onclick="this.parentNode.className = ''">X</button>
+	<div id="msgbox">
+		<button class="close" onclick="this.parentNode.className = ''"></button>
 		<div class="content"></div>
+		<div class="answer">
+			<a class="noButton" onclick="this.parentNode.parentNode.className = ''">No</a>
+			<a class="yesButton" onclick="this.parentNode.parentNode.className = ''">Yes</a>
+			<a class="cancelButton" onclick="this.parentNode.parentNode.className = ''">Cancel</a>
+			<a class="okButton" onclick="this.parentNode.parentNode.className = ''">OK</a>
+		</div>
 	</div>
 
 	<script src="conf.js"></script>
-	<script src="js/lib.js"></script>
 	<script src="js/spat.js"></script>
 	<script src="js/prot.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/lib.js"></script>
 	<script src="js/view.js"></script>
 </body>
 </html>

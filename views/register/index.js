@@ -15,5 +15,27 @@ spat.addView("register", ["index", "nocode"], function(args, view)
 			return lib.notify("You must provide a username.");
 		else if (view.elem(".password").value.length < 1)
 			return lib.notify("You must provide a password.");
+
+		prot.send("user_create",
+		{
+			"username": view.elem(".username").value,
+			"password": view.elem(".password").value,
+			"inviteCode": inviteCode
+		},
+		function(err, res)
+		{
+			console.log(err);
+
+			if (err === "EINVITECODE")
+				return lib.notify("Invalid invite code.");
+			else if (err === "ELOGGEDIN")
+				return lib.notify("You're already logged in.");
+			else if (err)
+				return lib.notify("An error occurred.");
+
+			lib.setStorage("token", res.token);
+
+			location.hash = "front";
+		});
 	});
 });

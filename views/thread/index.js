@@ -17,8 +17,6 @@ spat.addView("thread", ["index", "thread"], function(args, view)
 			return console.log(err);
 		}
 
-		console.log(res);
-
 		var thread = view.template("thread",
 		{
 			"id": id.toString(),

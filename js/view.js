@@ -2,6 +2,8 @@
 {
 	var templatesLoaded = false;
 
+	var firstDraw = true;
+
 	function _draw(name, args)
 	{
 		switch (name)
@@ -30,7 +32,7 @@
 				{
 					prot.send("invite_code_create", {}, function(err, res)
 					{
-						lib.notify(spat.template("invite_code_message",
+						lib.msgbox(spat.template("invite_code_message",
 						{
 							"host": location.hostname,
 							"path": location.pathname,
@@ -43,8 +45,12 @@
 
 		case "logout":
 			spat.draw("userbox", spat.template("userbox_logged_out"));
+			if (!firstDraw)
+				lib.notify("You were logged out.");
 			break;
 		}
+
+		firstDraw = false;
 	}
 
 	var _drawQueue = [];
@@ -112,4 +118,20 @@
 	{
 		draw("logout");
 	}
+
+	setTimeout(function()
+	{
+		lib.msgbox("Do you want to receive a notification right now?",
+		{
+			"yes": function()
+			{
+				lib.notify("Here's your notification.");
+			},
+
+			"no": function()
+			{
+
+			}
+		});
+	}, 1000);
 })();

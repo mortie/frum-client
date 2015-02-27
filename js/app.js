@@ -2,7 +2,7 @@ window.prot = new Prot(conf.webSocketURL);
 
 prot.on("close", function()
 {
-	alert("Can't connect to the server.");
+	lib.notify("Can't connect to the server.");
 });
 
 window.spat = new Spat(
