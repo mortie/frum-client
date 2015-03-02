@@ -1,8 +1,0 @@
-#view.login input,
-#view.login button,
-#view.register input,
-#view.register button
-{
-	display: block;
-	margin: 6px auto;
-}

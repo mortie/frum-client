@@ -6,37 +6,57 @@ spat.addView("cat", ["index", "thread"], function(args, view)
 	if (!category)
 		location.hash = "front";
 
-	prot.send("threads_get",
-	{
-		"offset": (page - 1) * conf.postsPerPage,
-		"count": conf.postsPerPage,
-		"category_id": category
-	},
-	function(err, res)
+	lib.concurrent(
+	[
+		function(cb)
+		{
+			prot.send("threads_get",
+			{
+				"offset": (page - 1) * conf.postsPerPage,
+				"count": conf.postsPerPage,
+				"category_id": category
+			},
+			function(err, res)
+			{
+				cb("threads", res.threads);
+			});
+		},
+
+		function(cb)
+		{
+			prot.send("category_get_info",
+			{
+				"id": category
+			},
+			function(err, res)
+			{
+				cb("category", res);
+			});
+		}
+	],
+	function(res)
 	{
 		var threads = "";
-
 		res.threads.forEach(function(thread)
 		{
 			threads += view.template("thread",
 			{
 				"id": thread.id.toString(),
-				"username": thread.username,
 				"name": thread.name,
-				"date": lib.dateToString(new Date(thread.date_created)),
-				"category_id": thread.category_id.toString()
+				"username": thread.username,
+				"date": lib.dateToString(new Date(thread.date_created))
 			});
 		});
 
 		view.draw(view.template("index",
 		{
 			"threads": threads,
+			"category": res.category.name,
 			"id": category.toString(),
-			"prevPage": (page-1).toString(),
-			"nextPage": (page+1).toString(),
+			"nextPage": (page + 1).toString(),
+			"prevPage": (page - 1).toString(),
 			"firstPage": (page === 1),
-			"lastPage": (res.threads.length < conf.postsPerPage),
-			"category": res.threads[0].category_name
+			"lastPage": (res.threads.length < conf.postsPerPage)
 		}));
 	});
 });

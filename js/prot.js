@@ -25,6 +25,11 @@
 			this._emit("close");
 		}.bind(this);
 
+		this.ws.onerror = function(evt)
+		{
+			this._emit("error", evt);
+		}.bind(this);
+
 		this.ws.onmessage = function(evt)
 		{
 			var msg = JSON.parse(evt.data);

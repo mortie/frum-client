@@ -2,8 +2,19 @@ body
 {
 	margin: 0px;
 	background-color: #292929;
+	overflow-y: scroll;
+}
 
+*
+{
 	font-family: "Times New Roman";
+	font-size: 16px;
+}
+
+textarea
+{
+	resize: vertical;
+	height: 100px;
 }
 
 a:hover
@@ -59,9 +70,13 @@ body.cat #nav .cats
 {
 	margin-right: 12px;
 }
-#userbox .invite.invitesDisabled
+#userbox .invite
 {
 	display: none;
+}
+body.perm_invite #userbox .invite
+{
+	display: inline;
 }
 #userbox > div,
 #userbox > a
@@ -77,7 +92,7 @@ body.cat #nav .cats
 	opacity: 0;
 	top: -500%;
 
-	position: absolute;
+	position: fixed;
 
 	bottom: 0px;
 	left: 0px;
@@ -104,34 +119,25 @@ body.cat #nav .cats
 #msgbox .close
 {
 	position: absolute;
-	height: 24px;
-	width: 24px;
-	padding: 0px;
-	border-bottom-right-radius: 12px;
-	border: 2px solid #222;
-	border-top-style: none;
-	border-left-style: none;
-	font-weight: bold;
+	height: 48px;
+	line-height: 48px;
 
-	background-color: #d11;
+	bottom: 0px;
+	left: 12px;
+
 	color: #eee;
-}
-#msgbox .close:before
-{
-	content: "x";
 }
 #msgbox .close:hover
 {
-	background-color: #eee;
-	color: #d11;
+	cursor: pointer;
 }
 #msgbox .content
 {
-	padding: 24px;
+	padding: 48px;
 	color: #eee;
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: calc(100% - 48px);
+	height: calc(100% - 96px);
 }
 #msgbox .content input
 {
@@ -166,7 +172,6 @@ body.cat #nav .cats
 	bottom: 0px;
 	text-align: right;
 	padding-bottom: 12px;
-	padding-right: 12px;
 	height: 24px;
 	line-height: 24px;
 	right: 0px;
@@ -176,7 +181,7 @@ body.cat #nav .cats
 #msgbox .cancelButton,
 #msgbox .okButton
 {
-	margin-right: 6px;
+	margin-right: 12px;
 	color: #eee;
 }
 #msgbox .noButton:hover,
@@ -194,57 +199,51 @@ body.cat #nav .cats
 
 	overflow: hidden;
 	line-height: 48px;
-	background-color: #444;
-	position: absolute;
+	background-color: #333;
+	position: fixed;
+	bottom: 0px;
 	width: 100%;
 	z-index: 20;
 }
 #notification.active
 {
 	max-height: 48px;
-	border-bottom: 2px solid #222;
+	border-top: 2px solid #222;
 }
 #notification.active:hover
 {
 	transition: max-height 0.6s;
 	max-height: 200px;
 }
+#notification.active.clickable:hover
+{
+	cursor: pointer;
+}
 #notification .close
 {
-	height: 100%;
-	width: 48px;
-	background-color: #d11;
+	height: 48px;
+	line-height: 48px;
 	color: #eee;
 	float: right;
-	border-style: none;
-	border-left: 2px solid #222;
 	padding: 0px;
 
 	position: absolute;
+	top: 0px;
 	bottom: 0px;
-	right: 0px;
-}
-#notification .close:before
-{
-	font-size: 24px;
-	content: "x";
+	margin: auto;
+	right: 12px;
 }
 #notification .close:hover
 {
-	background-color: #eee;
-	color: #d11;
+	cursor: pointer;
 }
-#notification .title
+#notification .title,
+#notification .body
 {
 	line-height: 48px;
 	margin-left: 12px;
 	color: #eee;
-}
-#notification .body
-{
-	margin-left: 12px;
-	line-height: 24px;
-	color: #eee;
+	width: calc(100% - 48px);
 }
 
 #view
@@ -252,16 +251,16 @@ body.cat #nav .cats
 	width: 90%;
 	max-width: 1000px;
 	margin: 48px auto;
-	background-color: #323232;
-	border: 2px solid #222;
-	border-bottom: none;
+	background: none;
 	position: relative;
 }
 #view > div
 {
 	padding: 12px;
 	color: #bbb;
-	border-bottom: 2px solid #222;
+	background-color: #323232;
+	border: 2px solid #222;
+	margin-bottom: 12px;
 }
 #view > div a,
 #view > div a:visited
@@ -307,4 +306,103 @@ body.cat #nav .cats
 #view .name
 {
 	margin-bottom: 12px;
+}
+
+#view .form
+{
+	margin: 0px auto;
+}
+#view .key
+{
+	display: inline-block;
+	width: 33%;
+	text-align: right;
+	margin-right: 6px;
+	vertical-align: top;
+	margin-top: 8px;
+}
+#view .val
+{
+	display: inline-block;
+	width: 45%;
+}
+#view .form .submit
+{
+	text-align: right;
+	width: calc(45% + 33% + 6px);
+}
+#view .form .key > *,
+#view .form .val > *
+{
+	padding: 5px;
+	border: 2px solid #222;
+	width: calc(100% - 14px);
+}
+#view .form .val
+{
+	margin-bottom: 12px;
+}
+#view .form .submit button
+{
+	background: none;
+	border: none;
+	padding: 3px;
+	color: #eee;
+	outline: none;
+}
+#view .form .submit button:hover
+{
+	cursor: pointer;
+}
+#view .form .wide
+{
+	width: 100%;
+}
+#view .form .key.wide
+{
+	text-align: left;
+	margin-top: 0px;
+}
+
+#view .post p
+{
+	margin-top: 0px;
+}
+
+#view .date
+{
+	color: #eee;
+}
+
+#view .desc,
+#view .desc *
+{
+	font-size: 13px;
+}
+
+#view .newcat
+{
+	display: none;
+}
+body.perm_newcat #view .newcat
+{
+	display: block;
+}
+
+#view .newthread
+{
+	display: none;
+}
+body.perm_newthread #view .newthread
+{
+	display: block;
+}
+
+#view .newpost
+{
+	display: none;
+}
+body.perm_newpost #view .newpost
+{
+	display: block;
 }

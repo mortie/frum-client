@@ -32,6 +32,11 @@
 				{
 					prot.send("invite_code_create", {}, function(err, res)
 					{
+						if (err === "ENOPERM")
+							return lib.notify("You don't have permission to do that.");
+						else if (err)
+							return lib.notify("An error occurred.");
+
 						lib.msgbox(spat.template("invite_code_message",
 						{
 							"host": location.hostname,
@@ -104,11 +109,7 @@
 				lib.setStorage("token", "");
 				draw("logout");
 			}
-			else if (!err)
-			{
-				draw("login");
-			}
-			else
+			else if (err)
 			{
 				console.log(err);
 			}

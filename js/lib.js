@@ -16,8 +16,31 @@
 		"close": function(){}
 	}
 
-	if (window.Notification)
-		Notification.requestPermission();
+	var months =
+	[
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	]
+
+	lib.pad = function(str, length, padChar)
+	{
+		var missing = (length - str.length) + 1;
+
+		if (missing <= 0)
+			return str;
+
+		return new Array(missing).join(padChar) + str;
+	}
 
 	lib.getStorage = function(key)
 	{
@@ -67,7 +90,8 @@
 			spat.elem("#msgbox").className += " withOk";
 			msgboxCallbacks.ok = evts.ok;
 		}
-		msgboxCallbacks.close = evts.close || (function(){});
+		if (evts)
+			msgboxCallbacks.close = evts.close || (function(){});
 	}
 
 	spat.event("#msgbox .noButton", "click", function evtHandler(e)
@@ -91,35 +115,73 @@
 		msgboxCallbacks.close(e);
 	});
 
-	lib.notify = function(title, body)
+	lib.notify = function(title, body, url)
 	{
 		clearTimeout(timeouts.notifyClear);
 
-		spat.elem("#notification .title").innerHTML = title;
-		spat.elem("#notification .body").innerHTML = body || "";
-		spat.elem("#notification").className = "active";
+		var elem = spat.elem("#notification");
 
-		if (body && window.Notification)
-		{
-			new Notification(title,
-			{
-				"body": body
-			});
-		}
+		elem.querySelector(".title").innerHTML = title;
+		elem.querySelector(".body").innerHTML = body || "";
+		elem.className = "active";
+		if (url)
+			elem.className += " clickable";
+
+		elem.removeEventListener("mouseover");
+		elem.removeEventListener("click");
+		elem.querySelector(".title").removeEventListener("click");
+		elem.querySelector(".body").removeEventListener("click");
 
 		timeouts.notifyClear = setTimeout(function()
 		{
-			spat.elem("#notification").className = "";
+			elem.className = "";
 		}, 5000);
+
+		spat.event("#notification", "mouseover", function()
+		{
+			clearTimeout(timeouts.notifyClear);
+		});
+
+		spat.event("#notification .title", "click", function()
+		{
+			if (url)
+				location.href = url;
+		});
+		spat.event("#notification .body", "click", function()
+		{
+			if (url)
+				location.href = url;
+		});
 	}
 
 	lib.dateToString = function(date)
 	{
-		return ""+
-			date.getDate()+"/"+
-			(date.getMonth()+1)+"/"+
-			date.getFullYear()+" "+
-			date.getHours()+":"+
-			date.getMinutes();
+		var day = lib.pad(date.getDate().toString(), 2, "0");
+		var month = months[date.getMonth()];
+
+		return day+". of "+month+" "+
+			date.getFullYear()+", "+
+			lib.pad(date.getHours().toString(), 2, "0")+":"+
+			lib.pad(date.getMinutes().toString(), 2, "0");
+	}
+
+	lib.concurrent = function(funcs, cb)
+	{
+		var res = {};
+
+		var count = funcs.length;
+		var async = function(key, val)
+		{
+			res[key] = val;
+
+			--count;
+			if (count == 0)
+				cb(res);
+		}
+
+		funcs.forEach(function(func)
+		{
+			func(async);
+		});
 	}
 })();

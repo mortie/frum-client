@@ -144,6 +144,11 @@
 			}
 		},
 
+		"reload": function()
+		{
+			this.load(location.hash.substring(1));
+		},
+
 		"loadTemplates": function(names, cb)
 		{
 			if (typeof names === "string")

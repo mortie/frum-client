@@ -1,5 +1,26 @@
-{{thread}}
+<div class="section">
+	<a href="#cat/{{category_id}}">{{category}}</a>
+	/
+	<a href="#thread/{{id}}">{{name}}</a>
+</div>
 
-<div class="comments">
-	{{comments}}
+{{posts}}
+
+<div class="section navigate {{firstPage?}} {{lastPage?}}">
+	<a class="prev" href="#thread/{{id}}/{{prevPage}}">Back</a>
+	<a class="next" href="#thread/{{id}}/{{nextPage}}">Next</a>
+</div>
+<div class="section newpost">
+	<div class="form">
+		<div class="key wide">
+			New Comment
+		</div>
+		<div class="val wide">
+			<textarea class="in_newpost"></textarea>
+		</div>
+
+		<div class="submit wide">
+			<button class="in_submit">Submit</button>
+		</div>
+	</div>
 </div>

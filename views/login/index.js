@@ -6,8 +6,8 @@ spat.addView("login", ["index"], function(args, view)
 	{
 		prot.send("session_login",
 		{
-			"username": view.elem(".username").value,
-			"password": view.elem(".password").value
+			"username": view.elem(".in_username").value,
+			"password": view.elem(".in_password").value
 		},
 		function(err, res)
 		{
@@ -21,13 +21,13 @@ spat.addView("login", ["index"], function(args, view)
 		});
 	}
 
-	view.event(".submit", "click", login);
-	view.event(".username", "keydown", function(evt)
+	function checkKey(evt)
 	{
-		if (evt.keyCode === 13) login();
-	});
-	view.event(".password", "keydown", function(evt)
-	{
-		if (evt.keyCode === 13) login();
-	});
+		if (evt.keyCode === 13)
+			login();
+	}
+
+	view.event(".in_submit", "click", login);
+	view.event(".in_username", "keydown", checkKey);
+	view.event(".in_password", "keydown", checkKey);
 });

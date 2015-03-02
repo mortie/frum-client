@@ -5,13 +5,12 @@
 	<meta name="viewport" content="width=device-width">
 	<title>Frum</title>
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/views.css">
 </head>
 <body>
 	<div id="notification">
-		<button class="close" onclick="this.parentNode.className = ''"></button>
-		<div class="title"></div>
-		<div class="body"></div>
+		<div class="close" onclick="this.parentNode.className = ''">Close</div>
+		<div class="title" onclick="this.parentNode.className = ''"></div>
+		<div class="body" onclick="this.parentNode.className = ''"></div>
 	</div>
 
 	<div id="userbox"></div>
@@ -24,14 +23,14 @@
 	<div id="view"></div>
 
 	<div id="msgbox">
-		<button class="close" onclick="this.parentNode.className = ''"></button>
 		<div class="content"></div>
 		<div class="answer">
-			<a class="noButton" onclick="this.parentNode.parentNode.className = ''">No</a>
-			<a class="yesButton" onclick="this.parentNode.parentNode.className = ''">Yes</a>
-			<a class="cancelButton" onclick="this.parentNode.parentNode.className = ''">Cancel</a>
-			<a class="okButton" onclick="this.parentNode.parentNode.className = ''">OK</a>
+			<div class="noButton" onclick="this.parentNode.parentNode.className = ''">No</div>
+			<div class="yesButton" onclick="this.parentNode.parentNode.className = ''">Yes</div>
+			<div class="cancelButton" onclick="this.parentNode.parentNode.className = ''">Cancel</div>
+			<div class="okButton" onclick="this.parentNode.parentNode.className = ''">OK</div>
 		</div>
+		<div class="close" onclick="this.parentNode.className = ''">Close</div>
 	</div>
 
 	<script src="conf.js"></script>

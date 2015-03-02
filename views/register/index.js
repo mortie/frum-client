@@ -7,19 +7,19 @@ spat.addView("register", ["index", "nocode"], function(args, view)
 	else
 		return view.draw(view.template("nocode"));
 
-	view.event(".register", "click", function()
+	function register()
 	{
-		if (view.elem(".password").value !== view.elem(".password2").value)
+		if (view.elem(".in_password").value !== view.elem(".in_password2").value)
 			return lib.notify("The passwords don't match.");
-		else if (view.elem(".username").value.length < 1)
+		else if (view.elem(".in_username").value.length < 1)
 			return lib.notify("You must provide a username.");
-		else if (view.elem(".password").value.length < 1)
+		else if (view.elem(".in_password").value.length < 1)
 			return lib.notify("You must provide a password.");
 
 		prot.send("user_create",
 		{
-			"username": view.elem(".username").value,
-			"password": view.elem(".password").value,
+			"username": view.elem(".in_username").value,
+			"password": view.elem(".in_password").value,
 			"inviteCode": inviteCode
 		},
 		function(err, res)
@@ -37,5 +37,16 @@ spat.addView("register", ["index", "nocode"], function(args, view)
 
 			location.hash = "front";
 		});
-	});
+	}
+
+	function checkKey(evt)
+	{
+		if (evt.keyCode === 13)
+			register();
+	}
+
+	view.event(".in_submit", "click", register);
+	view.event(".in_username", "keypress", checkKey);
+	view.event(".in_password", "keypress", checkKey);
+	view.event(".in_password2", "keypress", checkKey);
 });
