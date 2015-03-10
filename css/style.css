@@ -7,8 +7,8 @@ body
 
 *
 {
-	font-family: "Times New Roman";
-	font-size: 16px;
+	font-family: "Lucidia", "Helvetica";
+	font-size: 14px;
 }
 
 textarea
@@ -22,11 +22,19 @@ a:hover
 	cursor: pointer;
 }
 
-#nav
+#topbar
 {
-	position: relative;
 	background-color: #3d3d3d;
 	border-bottom: 2px solid #222;
+	height: 48px;
+	line-height: 48px;
+}
+
+#nav
+{
+	position: absolute;
+	top: 0px;
+	z-index: 20;
 }
 #nav a,
 #nav a:visited
@@ -47,13 +55,15 @@ body.cat #nav .cats
 
 #userbox
 {
-	position: relative;
-	z-index: 10;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 	text-align: right;
 	float: right;
 	line-height: 48px;
 	height: 48px;
 	color: #bbb;
+	z-index: 20;
 }
 #userbox .welcome
 {
@@ -280,6 +290,19 @@ body.perm_invite #userbox .invite
 {
 	background-color: #3d3d3d;
 	color: #eee;
+}
+#view .title
+{
+	color: #eee;
+	background: none;
+	border: none;
+	position: absolute;
+	margin-top: -98px;
+	padding: 0px 0px;
+	width: 100%;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
 }
 #view .navigate .next
 {

@@ -32,7 +32,8 @@ spat.loadViews(
 	"register",
 	"user",
 	"newcat",
-	"newthread"
+	"newthread",
+	"admin"
 ]);
 
 spat.onload = function(view)
