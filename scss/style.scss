@@ -1,0 +1,384 @@
+$col-background: #292929;
+$col-box-generic: #333;
+$col-box-highlight: #3d3d3d;
+$col-text-foreground: #eee;
+$col-text-darkened: #bbb;
+$col-text-highlight: #ffb946;
+
+$num-big: 96px;
+$num-mid: 48px;
+$num-small: 24px;
+$num-smaller: 12px;
+$num-tiny: 6px;
+$num-border-width: 2px;
+
+@mixin border($sides) {
+	border: $num-border-width none #222;
+
+	@if $sides == "all" {
+		border-style: solid;
+	}
+	@else {
+		@each $side in $sides {
+			border-#{$side}-style: solid;
+		}
+	}
+}
+
+@mixin link() {
+	color: $col-text-foreground;
+	text-decoration: none;
+	border-bottom: 1px solid #777;
+	display: inline-block;
+	line-height: $num-smaller;
+
+	&:hover {
+		border-bottom-style: solid;
+		border-bottom-color: #eee;
+	}
+}
+
+@mixin perm($perm, $display: block) {
+	.#{$perm} {
+		display: none;
+
+		body.perm_#{$perm} & {
+			display: $display;
+		}
+	}
+}
+
+body {
+	margin: 0px;
+	background-color: $col-background;
+	overflow-y: scroll;
+}
+
+textarea {
+	resize: vertical;
+	height: 100px;
+}
+
+* {
+	font-family: "Lucidia", "Helvetica";
+	font-size: 14px;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+#topbar {
+	background-color: $col-box-highlight;
+	@include border("all");
+	height: $num-mid;
+	line-height: $num-mid;
+}
+
+#nav
+{
+	position: absolute;
+	top: 0px;
+	z-index: 20;
+
+	a, a:visited {
+		color: $col-text-foreground;
+		margin-left: $num-smaller;
+		line-height: $num-mid;
+		height: $num-mid;
+		display: inline-block;
+		text-decoration: none;
+	}
+
+	body.front & .front,
+	body.cats & .cats,
+	body.cat & .cats {
+		color: $col-text-highlight;
+	}
+}
+
+#userbox {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	text-align: right;
+	float: right;
+	line-height: $num-mid;
+	height: $num-mid;
+	color: $col-text-darkened;
+	z-index: 20;
+
+	.welcome {
+		display: inline;
+	}
+
+	a, a:visited {
+		color: $col-text-foreground;
+		text-decoration: none;
+	}
+
+	& > div, & > a {
+		margin-right: $num-smaller;
+		display: inline-block;
+		height: 100%;
+	}
+
+	@include perm(invite, inline);
+}
+
+#msgbox {
+	transition: opacity 0.2s, top 1s;
+
+	opacity: 0;
+	top: -500%;
+
+	position: fixed;
+
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
+
+	width: 90%;
+	height: 90%;
+	max-width: 90%;
+	max-height: 90%;
+	background-color: $col-box-highlight;
+
+	z-index: 30;
+
+	@include border("all");
+	box-shadow: 2px 2px 5px 2px #222;
+	overflow: hidden;
+
+	&.active {
+		transition: opacity 0.2s 0.3s, top 0.5s;
+
+		opacity: 1;
+		top: 0px;
+	}
+
+	.close {
+		position: absolute;
+		height: $num-mid;
+		line-height: $num-mid;
+
+		bottom: 0px;
+		left: $num-smaller;
+
+		color: $col-text-foreground;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	.content {
+		padding: $num-mid;
+		color: $col-text-foreground;
+		overflow-x: hidden;
+		overflow-y: auto;
+		height: calc(100% - $num-big);
+
+		& input {
+			width: 100%;
+		}
+	}
+
+	.yesButton, .noButton, .cancelButton, .okButton {
+		display: none;
+		margin-right: $num-smaller;
+		color: $col-text-foreground;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	&.withYes .yesButton,
+	&.withNo .noButton,
+	&.withCancel .cancelButton,
+	&.withOk .okButton {
+		display: inline;
+	}
+
+	.answer {
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		text-align: right;
+		padding-bottom: $num-smaller;
+		height: $num-small;
+		line-height: $num-small;
+	}
+}
+
+#notification {
+	transition: max-height 0.2s;
+	max-height: 0px;
+
+	overflow: hidden;
+	line-height: $num-mid;
+	background-color: $col-box-highlight;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	z-index: 20;
+
+	.clickable {
+		cursor: pointer;
+	}
+
+	.close {
+		height: $num-mid;
+		line-height: $num-mid;
+		color: $col-text-foreground;
+		float: right;
+		padding: 0px;
+
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		margin: auto;
+		right: $num-smaller;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	.title, .body {
+		line-height: $num-mid;
+		margin-left: $num-smaller;
+		color: $col-text-foreground;
+		width: calc(100% - #{$num-mid});
+	}
+
+	&.active {
+		max-height: $num-mid;
+		@include border("top");
+
+		&:hover {
+			transition: max-height 0.6s;
+			max-height: 200px;
+		}
+	}
+}
+
+#view {
+	width: 90%;
+	max-width: 1000px;
+	margin: $num-mid auto;
+	background: none;
+	position: relative;
+
+	& > div {
+		padding: $num-smaller;
+		color: $col-text-darkened;
+		background-color: $col-box-generic;
+		@include border("all");
+		margin-bottom: $num-smaller;
+
+		a, a:visited {
+			@include link;
+		}
+	}
+
+	.section {
+		background-color: $col-box-highlight;
+		color: $col-text-foreground;
+	}
+
+	.title {
+		color: $col-text-foreground;
+		font-size: 1.2em;
+		border: none;
+		background: none;
+	}
+
+	.navigate {
+		.next {
+			float: right;
+		}
+
+		&.firstPage .prev {
+			visibility: hidden;
+		}
+
+		&.lastPage .next {
+			visibility: hidden;
+		}
+
+		&.firstPage.lastPage {
+			display: none;
+		}
+	}
+
+	.content {
+		margin-bottom: $num-smaller;
+		color: $col-text-foreground;
+	}
+
+	.name {
+		margin-bottom: $num-smaller;
+	}
+
+	.form {
+		margin: 0px auto;
+
+		.key {
+			display: inline-block;
+			width: 33%;
+			text-align: right;
+			margin-right: $num-tiny;
+			vertical-align: top;
+			margin-top: 8px;
+
+			&.wide {
+				text-align: left;
+				margin-top: 0px;
+			}
+		}
+
+		.val {
+			display: inline-block;
+			width: 45%;
+		}
+
+		.key > *, .val > * {
+			padding: $num-tiny;
+			@include border("all");
+			width: calc(100% - #{($num-tiny * 2) + 2px});
+		}
+
+		.wide {
+			width: 100%;
+		}
+
+		.submit {
+			button {
+				background: none;
+				border: none;
+				padding: 3px;
+				color: $col-text-foreground;
+				outline: none;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.post p {
+		margin-top: 0px;
+	}
+
+	.date {
+		color: $col-text-foreground;
+	}
+
+	@include perm("newcat");
+	@include perm("newthread");
+	@include perm("newpost");
+}

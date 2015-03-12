@@ -1,431 +1,247 @@
-body
-{
-	margin: 0px;
-	background-color: #292929;
-	overflow-y: scroll;
-}
+body {
+  margin: 0px;
+  background-color: #292929;
+  overflow-y: scroll; }
 
-*
-{
-	font-family: "Lucidia", "Helvetica";
-	font-size: 14px;
-}
+textarea {
+  resize: vertical;
+  height: 100px; }
 
-textarea
-{
-	resize: vertical;
-	height: 100px;
-}
+* {
+  font-family: "Lucidia", "Helvetica";
+  font-size: 14px; }
 
-a:hover
-{
-	cursor: pointer;
-}
+a:hover {
+  cursor: pointer; }
 
-#topbar
-{
-	background-color: #3d3d3d;
-	border-bottom: 2px solid #222;
-	height: 48px;
-	line-height: 48px;
-}
+#topbar {
+  background-color: #3d3d3d;
+  border: 2px none #222;
+  border-style: solid;
+  height: 48px;
+  line-height: 48px; }
 
-#nav
-{
-	position: absolute;
-	top: 0px;
-	z-index: 20;
-}
-#nav a,
-#nav a:visited
-{
-	color: #eee;
-	margin-left: 12px;
-	line-height: 48px;
-	height: 48px;
-	display: inline-block;
-	text-decoration: none;
-}
-body.front #nav .front,
-body.cats #nav .cats,
-body.cat #nav .cats
-{
-	color: #FFB946 !important;
-}
+#nav {
+  position: absolute;
+  top: 0px;
+  z-index: 20; }
+  #nav a, #nav a:visited {
+    color: #eee;
+    margin-left: 12px;
+    line-height: 48px;
+    height: 48px;
+    display: inline-block;
+    text-decoration: none; }
+  body.front #nav .front, body.cats #nav .cats, body.cat #nav .cats {
+    color: #ffb946; }
 
-#userbox
-{
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	text-align: right;
-	float: right;
-	line-height: 48px;
-	height: 48px;
-	color: #bbb;
-	z-index: 20;
-}
-#userbox .welcome
-{
-	display: inline;
-}
-#userbox a,
-#userbox a:visited
-{
-	color: #eee;
-	text-decoration: none;
-}
-#userbox > div,
-#userbox > a
-{
-	margin-right: 12px;
-}
-#userbox .invite
-{
-	display: none;
-}
-body.perm_invite #userbox .invite
-{
-	display: inline;
-}
-#userbox > div,
-#userbox > a
-{
-	display: inline-block;
-	height: 100%;
-}
+#userbox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  text-align: right;
+  float: right;
+  line-height: 48px;
+  height: 48px;
+  color: #bbb;
+  z-index: 20; }
+  #userbox .welcome {
+    display: inline; }
+  #userbox a, #userbox a:visited {
+    color: #eee;
+    text-decoration: none; }
+  #userbox > div, #userbox > a {
+    margin-right: 12px;
+    display: inline-block;
+    height: 100%; }
+  #userbox .invite {
+    display: none; }
+    body.perm_invite #userbox .invite {
+      display: inline; }
 
-#msgbox
-{
-	transition: opacity 0.2s, top 1s;
+#msgbox {
+  transition: opacity 0.2s, top 1s;
+  opacity: 0;
+  top: -500%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  max-width: 90%;
+  max-height: 90%;
+  background-color: #3d3d3d;
+  z-index: 30;
+  border: 2px none #222;
+  border-style: solid;
+  box-shadow: 2px 2px 5px 2px #222;
+  overflow: hidden; }
+  #msgbox.active {
+    transition: opacity 0.2s 0.3s, top 0.5s;
+    opacity: 1;
+    top: 0px; }
+  #msgbox .close {
+    position: absolute;
+    height: 48px;
+    line-height: 48px;
+    bottom: 0px;
+    left: 12px;
+    color: #eee; }
+    #msgbox .close:hover {
+      cursor: pointer; }
+  #msgbox .content {
+    padding: 48px;
+    color: #eee;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100% - $num-big); }
+    #msgbox .content input {
+      width: 100%; }
+  #msgbox .yesButton, #msgbox .noButton, #msgbox .cancelButton, #msgbox .okButton {
+    display: none;
+    margin-right: 12px;
+    color: #eee; }
+    #msgbox .yesButton:hover, #msgbox .noButton:hover, #msgbox .cancelButton:hover, #msgbox .okButton:hover {
+      cursor: pointer; }
+  #msgbox.withYes .yesButton, #msgbox.withNo .noButton, #msgbox.withCancel .cancelButton, #msgbox.withOk .okButton {
+    display: inline; }
+  #msgbox .answer {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    text-align: right;
+    padding-bottom: 12px;
+    height: 24px;
+    line-height: 24px; }
 
-	opacity: 0;
-	top: -500%;
+#notification {
+  transition: max-height 0.2s;
+  max-height: 0px;
+  overflow: hidden;
+  line-height: 48px;
+  background-color: #3d3d3d;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 20; }
+  #notification .clickable {
+    cursor: pointer; }
+  #notification .close {
+    height: 48px;
+    line-height: 48px;
+    color: #eee;
+    float: right;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    right: 12px; }
+    #notification .close:hover {
+      cursor: pointer; }
+  #notification .title, #notification .body {
+    line-height: 48px;
+    margin-left: 12px;
+    color: #eee;
+    width: calc(100% - 48px); }
+  #notification.active {
+    max-height: 48px;
+    border: 2px none #222;
+    border-top-style: solid; }
+    #notification.active:hover {
+      transition: max-height 0.6s;
+      max-height: 200px; }
 
-	position: fixed;
+#view {
+  width: 90%;
+  max-width: 1000px;
+  margin: 48px auto;
+  background: none;
+  position: relative; }
+  #view > div {
+    padding: 12px;
+    color: #bbb;
+    background-color: #333;
+    border: 2px none #222;
+    border-style: solid;
+    margin-bottom: 12px; }
+    #view > div a, #view > div a:visited {
+      color: #eee;
+      text-decoration: none;
+      border-bottom: 1px solid #777;
+      display: inline-block;
+      line-height: 12px; }
+      #view > div a:hover, #view > div a:visited:hover {
+        border-bottom-style: solid;
+        border-bottom-color: #eee; }
+  #view .section {
+    background-color: #3d3d3d;
+    color: #eee; }
+  #view .title {
+    color: #eee;
+    font-size: 1.2em;
+    border: none;
+    background: none; }
+  #view .navigate .next {
+    float: right; }
+  #view .navigate.firstPage .prev {
+    visibility: hidden; }
+  #view .navigate.lastPage .next {
+    visibility: hidden; }
+  #view .navigate.firstPage.lastPage {
+    display: none; }
+  #view .content {
+    margin-bottom: 12px;
+    color: #eee; }
+  #view .name {
+    margin-bottom: 12px; }
+  #view .form {
+    margin: 0px auto; }
+    #view .form .key {
+      display: inline-block;
+      width: 33%;
+      text-align: right;
+      margin-right: 6px;
+      vertical-align: top;
+      margin-top: 8px; }
+      #view .form .key.wide {
+        text-align: left;
+        margin-top: 0px; }
+    #view .form .val {
+      display: inline-block;
+      width: 45%; }
+    #view .form .key > *, #view .form .val > * {
+      padding: 6px;
+      border: 2px none #222;
+      border-style: solid;
+      width: calc(100% - 14px); }
+    #view .form .wide {
+      width: 100%; }
+    #view .form .submit button {
+      background: none;
+      border: none;
+      padding: 3px;
+      color: #eee;
+      outline: none; }
+      #view .form .submit button:hover {
+        cursor: pointer; }
+  #view .post p {
+    margin-top: 0px; }
+  #view .date {
+    color: #eee; }
+  #view .newcat {
+    display: none; }
+    body.perm_newcat #view .newcat {
+      display: block; }
+  #view .newthread {
+    display: none; }
+    body.perm_newthread #view .newthread {
+      display: block; }
+  #view .newpost {
+    display: none; }
+    body.perm_newpost #view .newpost {
+      display: block; }
 
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	margin: auto;
-
-	width: 90%;
-	height: 90%;
-	max-width: 600px;
-	max-height: 200px;
-	background-color: #444;
-
-	border: 2px solid #222;
-	box-shadow: 2px 2px 5px 2px #222;
-	overflow: hidden;
-}
-#msgbox.active
-{
-	transition: opacity 0.2s 0.3s, top 0.5s;
-
-	opacity: 1;
-	top: 0px;
-}
-#msgbox .close
-{
-	position: absolute;
-	height: 48px;
-	line-height: 48px;
-
-	bottom: 0px;
-	left: 12px;
-
-	color: #eee;
-}
-#msgbox .close:hover
-{
-	cursor: pointer;
-}
-#msgbox .content
-{
-	padding: 48px;
-	color: #eee;
-	overflow-y: auto;
-	overflow-x: hidden;
-	height: calc(100% - 96px);
-}
-#msgbox .content input
-{
-	width: 100%;
-}
-#msgbox .yesButton,
-#msgbox .noButton,
-#msgbox .cancelButton,
-#msgbox .okButton
-{
-	display: none;
-}
-#msgbox.withYes .yesButton
-{
-	display: inline;
-}
-#msgbox.withNo .noButton
-{
-	display: inline;
-}
-#msgbox.withCancel .cancelButton
-{
-	display: inline;
-}
-#msgbox.withOk .okButton
-{
-	display: inline;
-}
-#msgbox .answer
-{
-	position: absolute;
-	bottom: 0px;
-	text-align: right;
-	padding-bottom: 12px;
-	height: 24px;
-	line-height: 24px;
-	right: 0px;
-}
-#msgbox .noButton,
-#msgbox .yesButton,
-#msgbox .cancelButton,
-#msgbox .okButton
-{
-	margin-right: 12px;
-	color: #eee;
-}
-#msgbox .noButton:hover,
-#msgbox .yesButton:hover,
-#msgbox .cancelButton:hover,
-#msgbox .okButton:hover
-{
-	cursor:pointer;
-}
-
-#notification
-{
-	transition: max-height 0.2s;
-	max-height: 0px;
-
-	overflow: hidden;
-	line-height: 48px;
-	background-color: #333;
-	position: fixed;
-	bottom: 0px;
-	width: 100%;
-	z-index: 20;
-}
-#notification.active
-{
-	max-height: 48px;
-	border-top: 2px solid #222;
-}
-#notification.active:hover
-{
-	transition: max-height 0.6s;
-	max-height: 200px;
-}
-#notification.active.clickable:hover
-{
-	cursor: pointer;
-}
-#notification .close
-{
-	height: 48px;
-	line-height: 48px;
-	color: #eee;
-	float: right;
-	padding: 0px;
-
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	margin: auto;
-	right: 12px;
-}
-#notification .close:hover
-{
-	cursor: pointer;
-}
-#notification .title,
-#notification .body
-{
-	line-height: 48px;
-	margin-left: 12px;
-	color: #eee;
-	width: calc(100% - 48px);
-}
-
-#view
-{
-	width: 90%;
-	max-width: 1000px;
-	margin: 48px auto;
-	background: none;
-	position: relative;
-}
-#view > div
-{
-	padding: 12px;
-	color: #bbb;
-	background-color: #323232;
-	border: 2px solid #222;
-	margin-bottom: 12px;
-}
-#view > div a,
-#view > div a:visited
-{
-	color: #eee;
-	text-decoration: none;
-	border-bottom: 1px solid #777;
-	display: inline-block;
-	line-height: 12px;
-}
-#view > div a:hover
-{
-	border-bottom-style: solid;
-	border-bottom-color: #eee;
-}
-#view .section
-{
-	background-color: #3d3d3d;
-	color: #eee;
-}
-#view .title
-{
-	color: #eee;
-	background: none;
-	border: none;
-	position: absolute;
-	margin-top: -98px;
-	padding: 0px 0px;
-	width: 100%;
-	height: 48px;
-	line-height: 48px;
-	text-align: center;
-}
-#view .navigate .next
-{
-	float: right;
-}
-#view .navigate.firstPage .prev
-{
-	visibility: hidden;
-}
-#view .navigate.lastPage .next
-{
-	visibility: hidden;
-}
-#view .navigate.firstPage.lastPage
-{
-	display: none;
-}
-
-#view .content
-{
-	margin-bottom: 12px;
-	color: #eee;
-}
-#view .name
-{
-	margin-bottom: 12px;
-}
-
-#view .form
-{
-	margin: 0px auto;
-}
-#view .key
-{
-	display: inline-block;
-	width: 33%;
-	text-align: right;
-	margin-right: 6px;
-	vertical-align: top;
-	margin-top: 8px;
-}
-#view .val
-{
-	display: inline-block;
-	width: 45%;
-}
-#view .form .submit
-{
-	text-align: right;
-	width: calc(45% + 33% + 6px);
-}
-#view .form .key > *,
-#view .form .val > *
-{
-	padding: 5px;
-	border: 2px solid #222;
-	width: calc(100% - 14px);
-}
-#view .form .val
-{
-	margin-bottom: 12px;
-}
-#view .form .submit button
-{
-	background: none;
-	border: none;
-	padding: 3px;
-	color: #eee;
-	outline: none;
-}
-#view .form .submit button:hover
-{
-	cursor: pointer;
-}
-#view .form .wide
-{
-	width: 100%;
-}
-#view .form .key.wide
-{
-	text-align: left;
-	margin-top: 0px;
-}
-
-#view .post p
-{
-	margin-top: 0px;
-}
-
-#view .date
-{
-	color: #eee;
-}
-
-#view .desc,
-#view .desc *
-{
-	font-size: 13px;
-}
-
-#view .newcat
-{
-	display: none;
-}
-body.perm_newcat #view .newcat
-{
-	display: block;
-}
-
-#view .newthread
-{
-	display: none;
-}
-body.perm_newthread #view .newthread
-{
-	display: block;
-}
-
-#view .newpost
-{
-	display: none;
-}
-body.perm_newpost #view .newpost
-{
-	display: block;
-}
+/*# sourceMappingURL=style.css.map */
