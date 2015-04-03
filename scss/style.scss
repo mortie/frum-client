@@ -294,6 +294,10 @@ a:hover {
 		font-size: 1.2em;
 		border: none;
 		background: none;
+
+		& * {
+			font-size: inherit;
+		}
 	}
 
 	.navigate {
@@ -356,6 +360,9 @@ a:hover {
 		}
 
 		.submit {
+			text-align: right;
+			width: calc(45% + 33% + #{$num-tiny});
+
 			button {
 				background: none;
 				border: none;

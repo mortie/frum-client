@@ -27,7 +27,7 @@ spat.addView("newthread", ["index"], function(args, view)
 
 			console.log(res);
 
-			console.log("thread/"+res.thread_id);
+			location.hash = "thread/"+res.thread_id;
 		});
 	}
 

@@ -63,3 +63,9 @@ prot.on("login", function()
 	});
 });
 
+prot.on("logout", function()
+{
+	state.permString = "";
+	state.perms = [];
+	document.body.className = state.view;
+});
